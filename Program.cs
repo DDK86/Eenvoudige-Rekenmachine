@@ -1,174 +1,118 @@
 ﻿using System;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text.Json.Nodes;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Rekenmachine
+namespace RekenmachineAmy
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            Rekenmachine:
-            Console.Clear();
-            Console.WriteLine("Welke som wil je maken Amy-Lynn? +, -, x of :?");
-            string Rekensom = Console.ReadLine();
-
-            if (Rekensom == "+")
             {
-                Console.WriteLine("Je wilt een plus som oplossen.");
-                Console.WriteLine("Welk getal wil je mee beginnen?: ");
-                string Plus1 = Console.ReadLine();
-                Console.WriteLine("Welk getal wil je hier bij optellen");
-                string Plus2 = Console.ReadLine();
+                int min = 0;
+                int max = 4;
+                int inputValue;
 
-                int num1 = int.Parse(Plus1);
-                int num2 = int.Parse(Plus2);
+            Start:
+                Console.WriteLine("Welke som wil je oplossen Amy-Lynn?");
+                Console.WriteLine("Toets 1 voor een + Som ");
+                Console.WriteLine("Toets 2 voor een - som ");
+                Console.WriteLine("Toets 3 voor een : som ");
+                Console.WriteLine("Toets 4 voor een x som ");
 
-                int result = num1 + num2;
-                Console.WriteLine("Het antwoord is: " + result);
-                Console.WriteLine($"{Environment.NewLine} Wil je nog een som maken? J/N");
+                string prompt = $"Toets het getal nu in: ({min}-{max}): ";
+
+                Console.Write(prompt);
+                while (!int.TryParse(Console.ReadLine(), out inputValue) || inputValue < min || max < inputValue)
+                {
+                    Console.WriteLine("Verkeerd gekozen... probeer het opnieuw.");
+                    Console.Write(prompt);
+                }
+
+                if (inputValue == 1)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Je wil een + som maken!");
+
+                    // Plus Som
+                    Console.WriteLine($"{Environment.NewLine} Voer het eerste getal in:");
+                    int num1 = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine($"{Environment.NewLine} Voer het getal in wat je er bij wil optellen:");
+                    int num2 = Convert.ToInt32(Console.ReadLine()); //int to int
+                    double antwoordop = num1 + num2;
+                    Console.WriteLine($"{Environment.NewLine} Het antwoord op de som " + (num1) + " + " + (num2) + " = " + antwoordop);
+                    goto Somklaar;
+                }
+
+                else if (inputValue == 2)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Je wil een - som maken!");
+                    // Min Som
+                    Console.WriteLine($"{Environment.NewLine} Voer het eerste getal in:");
+                    int num1 = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine($"{Environment.NewLine} Voer het getal in wat je er vanaf wil halen:");
+                    int num2 = Convert.ToInt32(Console.ReadLine()); //int to int
+                    double antwoordmin = num1 - num2;
+                    Console.WriteLine($"{Environment.NewLine} Het antwoord op de som " + (num1) + " - " + (num2) + " = " + antwoordmin);
+                    goto Somklaar;
+
+                }
+                else if (inputValue == 3)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Je wil een : som maken!");
+                    Console.WriteLine($"{Environment.NewLine} Voer het eerste getal in:");
+                    float num1 = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine($"{Environment.NewLine} Voer het getal in wat je wil delen:");
+                    float num2 = Convert.ToInt32(Console.ReadLine()); //int to int
+                    double antwoordkeer = num1 / num2;
+                    Console.WriteLine($"{Environment.NewLine} Het antwoord op de som " + (num1) + " : " + (num2) + " = " + antwoordkeer);
+                    goto Somklaar;
+                    Console.Clear();
+                }
+
+                else if (inputValue == 4)
+                {
+                    // X Som
+                    Console.WriteLine("Je wil een x som maken!");
+                    Console.WriteLine($"{Environment.NewLine} Voer het eerste getal in:");
+                    int num1 = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine($"{Environment.NewLine} Voer het getal in waar mee je de keer som wil maken:");
+                    int num2 = Convert.ToInt32(Console.ReadLine()); //int to int
+
+                    double antwoordkeer = num1 * num2;
+                    Console.WriteLine($"{Environment.NewLine} Het antwoord op de som " + (num1) + " x " + (num2) + " = " + antwoordkeer);
+                    goto Somklaar;
+                    Console.Clear();
+                }
+            Somklaar:
+                //Som klaar!
+                Console.WriteLine($"{Environment.NewLine} Wil je nog een som maken Amy-Lynn? J/N");
 
                 ConsoleKeyInfo cki = Console.ReadKey(intercept: true);
 
+            Opnieuw:
                 if (cki.Key.ToString() == "J")
                 {
-                    Console.WriteLine($"{Environment.NewLine}Oke! Ik ga weer terug naar het begin: ");
-                    System.Threading.Thread.Sleep(2000);
-                    goto Rekenmachine;
+                    Console.WriteLine($"{Environment.NewLine} Oke! Ik ga weer terug naar het begin: ");
+                    System.Threading.Thread.Sleep(1500);
+                    Console.Clear();
+                    goto Start;
                     //do what you need for yes
                 }
-                else
+                if (cki.Key.ToString() == "N")
                 {
-
-                    Console.WriteLine("Fijn dat je me gebruikt hebt Amy-Lynn! Topper!");
-                    System.Threading.Thread.Sleep(2000);
-                    System.Environment.Exit(0);
-                    // presses something other then Y
-                }
-
-
-            }
-            else if (Rekensom == "-")
-            {
-                Console.WriteLine("Je wilt een min som oplossen");
-                Console.WriteLine("Welk getal wil je mee beginnen?: ");
-                string Min1 = Console.ReadLine();
-                Console.WriteLine("Welk getal wil je hier vanaf halen?");
-                string Min2 = Console.ReadLine();
-
-                int num1 = int.Parse(Min1);
-                int num2 = int.Parse(Min2);
-
-                int result = num1 - num2;
-                Console.WriteLine("Het antwoord is: " + result);
-                Console.WriteLine($"{Environment.NewLine} Wil je nog een som maken? J/N");
-
-                ConsoleKeyInfo cki = Console.ReadKey(intercept: true);
-
-                if (cki.Key.ToString() == "J")
-                {
-                    Console.WriteLine($"{Environment.NewLine}Oke! Ik ga weer terug naar het begin: ");
-                    System.Threading.Thread.Sleep(2000);
-                    goto Rekenmachine;
-                    //do what you need for yes
-                }
-                else
-                {
-
-                    Console.WriteLine("Fijn dat je me gebruikt hebt Amy-Lynn! Topper!");
-                    System.Threading.Thread.Sleep(2000);
-                    System.Environment.Exit(0);
-                    // presses something other then Y
-                }
-
-            }
-
-            else if (Rekensom == "x")
-            {
-                Console.WriteLine("Je wilt een keer som oplossen");
-                Console.WriteLine("Welk getal wil je mee beginnen?: ");
-                string Mult1 = Console.ReadLine();
-                Console.WriteLine("Hoeveel keer wil je dit getal vermenigvuldigen?");
-                string Mult2 = Console.ReadLine();
-
-                double num1 = double.Parse(Mult1);
-                double num2 = double.Parse(Mult2);
-
-                double result = num1 *num2;
-                Console.WriteLine("Het antwoord is: " + result);
-                Console.WriteLine($"{Environment.NewLine} Wil je nog een som maken? J/N");
-
-                ConsoleKeyInfo cki = Console.ReadKey(intercept: true);
-
-                if (cki.Key.ToString() == "J")
-                {
-                    Console.WriteLine($"{Environment.NewLine}Oke! Ik ga weer terug naar het begin: ");
-                    System.Threading.Thread.Sleep(2000);
-                    goto Rekenmachine;
-                    //do what you need for yes
-                }
-                else
-                {
-                    System.Threading.Thread.Sleep(2000);
-                    Console.WriteLine("Fijn dat je me gebruikt hebt Amy-Lynn! Topper!");
-                    System.Threading.Thread.Sleep(2000);
-                    System.Environment.Exit(0);
-                    
-                    // presses something other then Y
-                }
-
-            }
-
-            else if (Rekensom == ":")
-            {
-                Console.WriteLine("Je wilt een deel som oplossen");
-                Console.WriteLine("Welk getal wil je mee beginnen?: ");
-                string Div1 = Console.ReadLine();
-                Console.WriteLine("Door welk getal wil je dit delen?");
-                string Div2 = Console.ReadLine();
-
-                double num1 = double.Parse(Div1);
-                double num2 = double.Parse(Div2);
-
-                double result = num1 / num2;
-                Console.WriteLine("Het antwoord is: " + result);
-                Console.WriteLine($"{Environment.NewLine} Wil je nog een som maken? J/N");
-
-                ConsoleKeyInfo cki = Console.ReadKey(intercept: true);
-
-                if (cki.Key.ToString() == "J")
-                {
-                    Console.WriteLine($"{Environment.NewLine}Oke! Ik ga weer terug naar het begin: ");
-                    
-                    goto Rekenmachine;
-                    System.Threading.Thread.Sleep(2000);
-                    //do what you need for yes
-                }
-                else
-                {
-                    
-                    Console.WriteLine("Fijn dat je me gebruikt hebt Amy-Lynn! Topper!");
+                    Console.WriteLine($"{Environment.NewLine} Fijn dat je me gebruikt hebt Amy-Lynn! Topper!");
                     System.Threading.Thread.Sleep(2000);
                     System.Environment.Exit(0);
                     // presses something other then Y
                 }
 
             }
-
-            else
-            {
-                Console.WriteLine("Dit is geen berekening die ik ken");
-                goto Rekenmachine;
-
-            }
-
-
         }
-        
-
-
-       
     }
 }
